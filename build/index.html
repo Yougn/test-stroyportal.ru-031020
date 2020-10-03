@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Стройпортал.ру</title>
+  <link rel="stylesheet" href="css/style.min.css">
+  <link rel="preload" href="fonts/opensanssemibold.woff2" as="font" type="font/woff2" crossorigin="">
+  <link rel="preload" href="fonts/opensans.woff2" as="font" type="font/woff2" crossorigin="">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+  <header>
+
+    <div class="header__first">
+      <div class="header__container header__container--first">
+        <div class="header__wrapper header__wrapper--first">
+          <span class="header__mark">Волгоградская область</span>
+          <ul class="header__list">
+            <li class="header__item"><a href="#">Тендеры</a></li>
+            <li class="header__item"><a href="#">База подрядчиков</a></li>
+            <li class="header__item header__item--service"><a href="#">Другие сервисы</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="header__second">
+      <div class="header__container header__container--second">
+        <div class="header__wrapper header__wrapper--second">
+          <div class="header__logo">
+            <a class="header__link" href="index.html">
+              <img src="img/logo.svg" width="221" height="48" alt="Логотип Stroyportal.ru">
+            </a>
+          </div>
+          <div class="catalog">
+            <button class="btn btn-catalog" type="button" aria-label="Кнопка Каталог">
+              <svg class="btn-catalog__svg" width="20" height="20">
+                <use href="img/sprite.svg#icon-menu"></use>
+              </svg>
+              Каталог
+            </button>
+          </div>
+          <div class="search">
+            <form class="search-form" action="/search/" method="post">
+              <div id="app">
+                <auto-complete :data="data" :field="field"></auto-complete>
+              </div>
+            </form>
+          </div>
+          <div class="roll">
+            <button class="btn btn-roll" type="button" aria-label="Кнопка Список">
+              <svg class="btn-roll__svg" width="20" height="24">
+                <use href="img/sprite.svg#icon-list"></use>
+              </svg>
+              Список
+            </button>
+          </div>
+          <div class="profile">
+            <a class="profile__link" href="#">
+              <img src="img/profile.svg" width="40" height="40" alt="Аватарка пользователя">
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </header>
+
+  <script id="auto-complete" type="text/template-x">
+    <div>
+      <input class="search-input"
+        type="text"
+        :value="input"
+        placeholder="Хочу найти..."
+        @keydown.tab.prevent="complete()"
+        @keyup="onInputChange"
+        @keydown="onSelectData" />
+      <table v-show="filteredData.length" class="search-table">
+        <tbody>
+          <tr v-for="(person, i) in filteredData":key="person.id" @click="complete(i)">
+            <td :class="{active: searchIndex === i}">{{ person[field] }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </script>
+
+  <script src="js/script.js"></script>
+</body>
+
+</html>
